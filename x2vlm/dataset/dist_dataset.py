@@ -13,7 +13,7 @@ from itertools import cycle
 import torch
 from torch.utils.data import IterableDataset
 
-from utils.hdfs_io import hopen, hlist_files, hexists
+from x2vlm.utils.hdfs_io import hopen, hlist_files, hexists
 
 
 class DistLineReadingDataset(IterableDataset):  # pylint: disable=W0223

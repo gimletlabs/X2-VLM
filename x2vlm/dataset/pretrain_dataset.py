@@ -28,9 +28,9 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
 
-from dataset import build_tokenizer
-from dataset.utils import pre_caption, sample_frame_ids, sample_clip_ids
-from dataset.dist_dataset import DistLineReadingDataset
+from x2vlm.dataset import build_tokenizer
+from x2vlm.dataset.utils import pre_caption, sample_frame_ids, sample_clip_ids
+from x2vlm.dataset.dist_dataset import DistLineReadingDataset
 
 
 class TextMaskingGenerator:

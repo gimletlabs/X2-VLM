@@ -18,14 +18,14 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
-from models.model_classification import XVLMForClassification
+from x2vlm.models.model_classification import XVLMForClassification
 
 import utils
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir, hexists, hcopy
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir, hexists, hcopy
 
-from dataset.utils import collect_result
-from dataset import create_dataset, create_sampler, create_loader, vqa_collate_fn, build_tokenizer
+from x2vlm.dataset.utils import collect_result
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, vqa_collate_fn, build_tokenizer
 
 from scheduler import create_scheduler
 from optim import create_optimizer

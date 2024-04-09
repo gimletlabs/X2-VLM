@@ -17,13 +17,13 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
-from models.model_classification import XVLMForNLVR
+from x2vlm.models.model_classification import XVLMForNLVR
 
 import utils
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir
 
-from dataset import create_dataset, create_sampler, create_loader, build_tokenizer
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, build_tokenizer
 from scheduler import create_scheduler
 from optim import create_optimizer
 

@@ -19,9 +19,9 @@ import torch.distributed as dist
 
 
 import utils
-from utils.hdfs_io import hexists, hmkdir
-from utils.checkpointer import Checkpointer
-from dataset import create_dataset, create_sampler, create_loader, build_tokenizer
+from x2vlm.utils.hdfs_io import hexists, hmkdir
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, build_tokenizer
 from scheduler import create_scheduler
 from optim import create_optimizer
 
@@ -131,7 +131,7 @@ def main(args, config):
                                             num_workers=[4], is_trains=[False], collate_fns=[None])[0]
 
     print("Creating model")
-    from models.model_classification import XVLMPlus4XVNLI
+    from x2vlm.models.model_classification import XVLMPlus4XVNLI
     model = XVLMPlus4XVNLI(config=config)
     model.load_pretrained(args.checkpoint, config, is_eval=args.evaluate)
     model = model.to(device)

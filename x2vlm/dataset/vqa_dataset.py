@@ -9,10 +9,10 @@ import torch
 
 from PIL import Image
 from torch.utils.data import Dataset
-from dataset.utils import pre_question, sample_frame_ids
+from x2vlm.dataset.utils import pre_question, sample_frame_ids
 
 from torchvision.transforms.functional import hflip
-from dataset import build_tokenizer
+from x2vlm.dataset import build_tokenizer
 
 
 class vqa_dataset(Dataset):

@@ -11,8 +11,8 @@ import time
 
 import torch
 
-from utils.hdfs_io import hexists, hmkdir, hcopy
-from utils.torch_io import save as hdfs_torch_save
+from x2vlm.utils.hdfs_io import hexists, hmkdir, hcopy
+from x2vlm.utils.torch_io import save as hdfs_torch_save
 logger = logging.getLogger(__name__)
 
 

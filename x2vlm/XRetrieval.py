@@ -18,7 +18,7 @@ import torch.distributed as dist
 
 
 import utils
-from dataset import create_dataset, create_sampler, create_loader, build_tokenizer
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, build_tokenizer
 from scheduler import create_scheduler
 from optim import create_optimizer
 
@@ -259,7 +259,7 @@ def main(args, config):
                                                num_workers=[4, 4], is_trains=[False, False], collate_fns=[None, None])
 
     print("Creating model", flush=True)
-    from models.model_retrieval import XVLMPlusForRetrieval
+    from x2vlm.models.model_retrieval import XVLMPlusForRetrieval
     model = XVLMPlusForRetrieval(config=config)
     model.load_pretrained(args.checkpoint, config, is_eval=args.evaluate)
     model = model.to(device)

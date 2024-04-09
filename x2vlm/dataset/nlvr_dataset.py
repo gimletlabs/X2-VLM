@@ -2,7 +2,7 @@ import json
 import os
 from torch.utils.data import Dataset
 from PIL import Image
-from dataset.utils import pre_caption
+from x2vlm.dataset.utils import pre_caption
 
 
 class nlvr_dataset(Dataset):

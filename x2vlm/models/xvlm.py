@@ -20,14 +20,14 @@ from einops import rearrange
 
 from timm.models.layers import trunc_normal_
 
-from models import box_ops
+from x2vlm.models import box_ops
 
-from models.xbert import BertConfig, BertForMaskedLM, BertModel
-from models.xroberta import RobertaForMaskedLM, RobertaModel, RobertaConfig
+from x2vlm.models.xbert import BertConfig, BertForMaskedLM, BertModel
+from x2vlm.models.xroberta import RobertaForMaskedLM, RobertaModel, RobertaConfig
 import copy
 
-from utils import read_json
-from dataset import build_tokenizer
+from x2vlm.utils import read_json
+from x2vlm.dataset import build_tokenizer
 
 
 class VanillaConfig(object):
@@ -177,7 +177,7 @@ def build_vision_encoder(config, load_params=False):
     num_patches = (config['image_res'] // config['patch_size']) ** 2
 
     if config.get('use_clip_vit', False):  # good performance, but only base model available
-        from models.clip_vit import CLIPVisionTransformer, interpolate_pos_embed
+        from x2vlm.models.clip_vit import CLIPVisionTransformer, interpolate_pos_embed
 
         vision_config = read_json(config['vision_config'])
         assert config['patch_size'] == vision_config['patch_size']
@@ -217,7 +217,7 @@ def build_vision_encoder(config, load_params=False):
                 load_params_choose_layers('encoder.layers', state_dict, mapper)
 
     elif config.get('use_swin', False):
-        from models.swin_transformer import SwinTransformer
+        from x2vlm.models.swin_transformer import SwinTransformer
 
         vision_config = read_json(config['vision_config'])
         assert config['image_res'] == vision_config['image_res']
@@ -240,7 +240,7 @@ def build_vision_encoder(config, load_params=False):
                                          use_checkpoint=False, add_cls=config.get('swin_add_cls', True))
 
         if load_params:
-            from models.swin_transformer import load_pretrained_swin
+            from x2vlm.models.swin_transformer import load_pretrained_swin
             state_dict = load_pretrained_swin(vision_encoder, vision_config['ckpt'])
 
     elif config.get('use_beit_v2', False):
@@ -250,9 +250,9 @@ def build_vision_encoder(config, load_params=False):
         vision_width = vision_config['vision_width']
 
         if 'base' in config['vision_config']:
-            from models.beit2 import beit_base_patch16 as beit_model
+            from x2vlm.models.beit2 import beit_base_patch16 as beit_model
         elif 'large' in config['vision_config']:
-            from models.beit2 import beit_large_patch16 as beit_model
+            from x2vlm.models.beit2 import beit_large_patch16 as beit_model
         else:
             raise ValueError
 
@@ -265,7 +265,7 @@ def build_vision_encoder(config, load_params=False):
                                     vision_num_hidden_layers=config.get('vision_num_hidden_layers', -1))
 
         if load_params:
-            from models.beit2 import load_pretrained_beit2
+            from x2vlm.models.beit2 import load_pretrained_beit2
             load_pretrained_beit2(vision_encoder, vision_config['ckpt'])
 
     else:
@@ -397,7 +397,7 @@ def load_pretrained(model, ckpt_rpath, config, is_eval=False, load_text=False):
     print("### Loading pretrained vision encoder", flush=True)
 
     if config.get('use_clip_vit', False):
-        from models.clip_vit import interpolate_pos_embed
+        from x2vlm.models.clip_vit import interpolate_pos_embed
         del state_dict['vision_encoder.position_ids']
         num_patches = (config['image_res'] // config['patch_size']) ** 2
         pos_embed_reshaped = interpolate_pos_embed(state_dict['vision_encoder.pos_embed.weight'].unsqueeze(dim=0),
@@ -405,7 +405,7 @@ def load_pretrained(model, ckpt_rpath, config, is_eval=False, load_text=False):
         state_dict['vision_encoder.pos_embed.weight'] = pos_embed_reshaped.squeeze(dim=0)
 
     elif config.get('use_swin', False) or config.get('use_swin_v2', False):
-        from models.swin_transformer import load_pretrained_swin
+        from x2vlm.models.swin_transformer import load_pretrained_swin
 
         vision_state_dict = {}
         for k in list(state_dict.keys()):
@@ -419,7 +419,7 @@ def load_pretrained(model, ckpt_rpath, config, is_eval=False, load_text=False):
             state_dict['vision_encoder.' + k] = vision_state_dict[k]
 
     elif config.get('use_beit_v2', False):
-        from models.beit2 import interpolate_pos_embed
+        from x2vlm.models.beit2 import interpolate_pos_embed
 
         vision_state_dict = {}
         for k in list(state_dict.keys()):
@@ -972,7 +972,7 @@ class XVLMPlusBase(XVLMBase):
 
         self.use_mlm_loss = use_mlm_loss
         if use_mlm_loss:
-            from models.xbert import BertOnlyMLMHead
+            from x2vlm.models.xbert import BertOnlyMLMHead
             self.mlm_head = BertOnlyMLMHead(self.text_encoder.config)
             self.update_init_params(['mlm_head.' + n for (n, _) in self.mlm_head.named_parameters()])
             # self.tie_text_and_cross_wordemb()

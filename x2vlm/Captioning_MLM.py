@@ -21,11 +21,11 @@ import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
 import utils
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir, hexists
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir, hexists
 
-from dataset.utils import collect_result, coco_caption_eval
-from dataset import create_dataset, create_sampler, create_loader
+from x2vlm.dataset.utils import collect_result, coco_caption_eval
+from x2vlm.dataset import create_dataset, create_sampler, create_loader
 
 
 from scheduler import create_scheduler
@@ -151,7 +151,7 @@ def main(args, config):
                                               collate_fns=[train_dataset.collate_fn, None, None])
 
     print("Creating MLM-based Generator")
-    from models.model_generation import XVLMForMLMCaptioning
+    from x2vlm.models.model_generation import XVLMForMLMCaptioning
     model = XVLMForMLMCaptioning(config=config)
     model.load_pretrained(args.checkpoint, config, is_eval=args.evaluate)
     model = model.to(device)

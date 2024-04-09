@@ -9,7 +9,7 @@ import time
 import random
 import argparse
 
-from utils.hdfs_io import HADOOP_BIN, hexists, hmkdir, hcopy
+from x2vlm.utils.hdfs_io import HADOOP_BIN, hexists, hmkdir, hcopy
 
 ############ Set it correctly for distributed training across nodes
 NNODES = int(os.getenv("ARNOLD_WORKER_NUM"))  # e.g. 1/2/3/4
@@ -311,7 +311,7 @@ def run_marvl(args):
     dist_launch = get_dist_launch(args)
 
     if not os.path.exists('data_mm/marvl'):
-        from utils.marvl_preproc import marvl_preproc
+        from x2vlm.utils.marvl_preproc import marvl_preproc
         marvl_preproc('iglue/datasets/marvl', 'data_mm/marvl')
 
     assert os.path.exists("images/nlvr2")

@@ -21,12 +21,12 @@ import torch.distributed as dist
 from torch.optim import Optimizer
 
 import utils
-from dataset import create_dataset
+from x2vlm.dataset import create_dataset
 from scheduler import create_scheduler
 from optim import create_optimizer
 
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir, hcopy
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir, hcopy
 from accelerators.apex_ddp_accelerator import ApexDDPAccelerator
 
 
@@ -519,7 +519,7 @@ def main(args, config):
     print(f"Creating model {config.get('model_type', 'XVLM')}", flush=True)
     if config.get('model_type', ''):
         if config['model_type'] == 'XVLMPlus':
-            from models.model_pretrain import XVLMPlus
+            from x2vlm.models.model_pretrain import XVLMPlus
 
             assert os.path.exists(args.checkpoint)
             model = XVLMPlus(config=config, load_text_params=False, load_vision_params=False, load_cross_params=False, pretraining=False)
@@ -531,7 +531,7 @@ def main(args, config):
             model.load_pretrained(args.checkpoint, config, text_ckpt_rpath=text_ckpt_rpath)
 
         elif config['model_type'] == 'CrossViewLM':
-            from models.model_pretrain import CrossViewLM
+            from x2vlm.models.model_pretrain import CrossViewLM
 
             assert os.path.exists(args.checkpoint)
             model = CrossViewLM(config=config, load_text_params=False, load_vision_params=False, load_cross_params=False,
@@ -548,7 +548,7 @@ def main(args, config):
 
     else:
 
-        from models.model_pretrain import XVLM
+        from x2vlm.models.model_pretrain import XVLM
 
         if os.path.exists(args.checkpoint):  # for domain pre-training
             model = XVLM(config=config, load_text_params=False, load_vision_params=False, pretraining=False)

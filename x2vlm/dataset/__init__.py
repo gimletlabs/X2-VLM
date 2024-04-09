@@ -5,22 +5,22 @@ from torchvision import transforms
 
 from torchvision.transforms import InterpolationMode
 
-from dataset.tokenizers import build_tokenizer
-from dataset.pretrain_dataset import ImageTextJsonDataset, RegionTextJsonDataset, TextJsonDataset, FrameTextDataset
-from dataset.pretrain_dataset_multilingual import ImageMultiTextDataset, RegionMultiTextDataset, ParaTextDataset
+from x2vlm.dataset.tokenizers import build_tokenizer
+from x2vlm.dataset.pretrain_dataset import ImageTextJsonDataset, RegionTextJsonDataset, TextJsonDataset, FrameTextDataset
+from x2vlm.dataset.pretrain_dataset_multilingual import ImageMultiTextDataset, RegionMultiTextDataset, ParaTextDataset
 
-from dataset.retrieval_dataset import re_train_dataset, re_eval_dataset
-from dataset.nlvr_dataset import nlvr_dataset
-from dataset.vqa_dataset import vqa_dataset, msrvtt_qa_dataset, msvd_qa_dataset, vqa_classify_dataset
-from dataset.grounding_dataset import grounding_dataset, grounding_dataset_bbox
-from dataset.captioning_dataset import coco_karpathy_train, coco_karpathy_train_mlm, coco_karpathy_train_scst, coco_karpathy_caption_eval
+from x2vlm.dataset.retrieval_dataset import re_train_dataset, re_eval_dataset
+from x2vlm.dataset.nlvr_dataset import nlvr_dataset
+from x2vlm.dataset.vqa_dataset import vqa_dataset, msrvtt_qa_dataset, msvd_qa_dataset, vqa_classify_dataset
+from x2vlm.dataset.grounding_dataset import grounding_dataset, grounding_dataset_bbox
+from x2vlm.dataset.captioning_dataset import coco_karpathy_train, coco_karpathy_train_mlm, coco_karpathy_train_scst, coco_karpathy_caption_eval
 
-from dataset.vqa_dataset import xgqa_dataset, next_qa_mc_dataset
-from dataset.xvnli_dataset import xvnli_dataset
-from dataset.xflickrco_dataset import xflickrco_train_dataset, xflickrco_eval_dataset
-from dataset.wit_dataset import wit_train_dataset, wit_eval_dataset
+from x2vlm.dataset.vqa_dataset import xgqa_dataset, next_qa_mc_dataset
+from x2vlm.dataset.xvnli_dataset import xvnli_dataset
+from x2vlm.dataset.xflickrco_dataset import xflickrco_train_dataset, xflickrco_eval_dataset
+from x2vlm.dataset.wit_dataset import wit_train_dataset, wit_eval_dataset
 
-from dataset.randaugment import RandomAugment
+from x2vlm.dataset.randaugment import RandomAugment
 
 
 def create_dataset(dataset, config, evaluate=False):

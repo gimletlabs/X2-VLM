@@ -18,10 +18,10 @@ import torch.distributed as dist
 
 
 import utils
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir
 
-from dataset import create_dataset, create_sampler, create_loader, build_tokenizer
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, build_tokenizer
 from scheduler import create_scheduler
 from optim import create_optimizer
 
@@ -241,10 +241,10 @@ def main(args, config):
     print(f"Creating model", flush=True)
     if args.text2video:
         print("Creating text2video model", flush=True)
-        from models.model_retrieval import XVLMForT2V
+        from x2vlm.models.model_retrieval import XVLMForT2V
         model = XVLMForT2V(config=config)
     else:
-        from models.model_retrieval import XVLMForRetrieval
+        from x2vlm.models.model_retrieval import XVLMForRetrieval
         model = XVLMForRetrieval(config=config)
 
     model.load_pretrained(args.checkpoint, config, is_eval=args.evaluate)

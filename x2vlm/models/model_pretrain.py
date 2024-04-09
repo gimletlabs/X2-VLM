@@ -18,7 +18,7 @@ import json
 import torch
 from einops import rearrange
 
-from models.xvlm import XVLMBase, XVLMPlusBase, VanillaConfig
+from x2vlm.models.xvlm import XVLMBase, XVLMPlusBase, VanillaConfig
 
 
 class XVLM(XVLMBase):

@@ -1,8 +1,8 @@
-from refTools.evaluation.tokenizer.ptbtokenizer import PTBTokenizer
-from refTools.evaluation.bleu.bleu import Bleu
-from refTools.evaluation.meteor.meteor import Meteor
-from refTools.evaluation.rouge.rouge import Rouge
-from refTools.evaluation.cider.cider import Cider
+from x2vlm.refTools.evaluation.tokenizer.ptbtokenizer import PTBTokenizer
+from x2vlm.refTools.evaluation.bleu.bleu import Bleu
+from x2vlm.refTools.evaluation.meteor.meteor import Meteor
+from x2vlm.refTools.evaluation.rouge.rouge import Rouge
+from x2vlm.refTools.evaluation.cider.cider import Cider
 
 """
 Input: refer and Res = [{ref_id, sent}]

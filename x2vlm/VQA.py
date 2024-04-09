@@ -14,11 +14,11 @@ import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
 import utils
-from utils.checkpointer import Checkpointer
-from utils.hdfs_io import hmkdir, hexists
+from x2vlm.utils.checkpointer import Checkpointer
+from x2vlm.utils.hdfs_io import hmkdir, hexists
 
-from dataset.utils import collect_result
-from dataset import create_dataset, create_sampler, create_loader, vqa_collate_fn, build_tokenizer
+from x2vlm.dataset.utils import collect_result
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, vqa_collate_fn, build_tokenizer
 
 from scheduler import create_scheduler
 from optim import create_optimizer
@@ -148,7 +148,7 @@ def main(args, config):
     config['eos'] = vqa_test_dataset.eos_token
 
     print(f"Creating model", flush=True)
-    from models.model_generation import XVLMForVQA
+    from x2vlm.models.model_generation import XVLMForVQA
     model = XVLMForVQA(config=config)
     model.load_pretrained(args.checkpoint, config, is_eval=args.evaluate or args.load_vqa_pretrain)
     model = model.to(device)

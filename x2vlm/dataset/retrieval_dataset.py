@@ -13,7 +13,7 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 Image.MAX_IMAGE_PIXELS = None
 
-from dataset.utils import pre_caption, sample_frame_ids
+from x2vlm.dataset.utils import pre_caption, sample_frame_ids
 
 
 class re_train_dataset(Dataset):

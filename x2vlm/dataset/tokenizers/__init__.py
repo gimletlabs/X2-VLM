@@ -1,5 +1,5 @@
 from transformers import BertTokenizer, RobertaTokenizer, XLMRobertaTokenizer, AutoTokenizer
-from dataset.tokenizers.bert_tokenizer_with_dropout import BertTokenizerWithDropout
+from x2vlm.dataset.tokenizers.bert_tokenizer_with_dropout import BertTokenizerWithDropout
 
 
 def build_tokenizer(text_encoder: str, dropout=0):

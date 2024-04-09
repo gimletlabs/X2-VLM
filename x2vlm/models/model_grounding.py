@@ -1,4 +1,4 @@
-from models import XVLMBase, load_pretrained
+from x2vlm.models import XVLMBase, load_pretrained
 
 
 class XVLMForGrounding(XVLMBase):

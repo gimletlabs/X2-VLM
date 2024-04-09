@@ -8,12 +8,12 @@ import torch.distributed as dist
 import torch.nn.functional as F
 import pickle
 
-import utils
+from x2vlm import utils
 from tqdm import tqdm
 
-from utils.hdfs_io import hexists, hcopy, hopen
-from vqaTools.vqaEval import VQAEval
-from refTools.evaluation.refEvaluation import RefEvaluation
+from x2vlm.utils.hdfs_io import hexists, hcopy, hopen
+from x2vlm.vqaTools.vqaEval import VQAEval
+from x2vlm.refTools.evaluation.refEvaluation import RefEvaluation
 
 
 def sample_clip_ids(clips, mininum_frames: int, clip_captions=None, skip_caption_set=None):

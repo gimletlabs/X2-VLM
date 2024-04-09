@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from models.xvlm import XVLMBase, XVLMPlusBase
+from x2vlm.models.xvlm import XVLMBase, XVLMPlusBase
 
 
 class XVLMForRetrieval(XVLMBase):

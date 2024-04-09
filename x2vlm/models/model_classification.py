@@ -9,8 +9,8 @@ from torch.nn import MSELoss
 
 from einops import rearrange
 
-from models.xvlm import XVLMBase, XVLMPlusBase
-from models.xvlm import build_mlp
+from x2vlm.models.xvlm import XVLMBase, XVLMPlusBase
+from x2vlm.models.xvlm import build_mlp
 
 
 class XVLMForClassification(XVLMBase):

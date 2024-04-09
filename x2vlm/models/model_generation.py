@@ -7,10 +7,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.modules.loss import _Loss
 
-from dataset import build_tokenizer
-from models.xbert import BertConfig, BertLMHeadModel
+from x2vlm.dataset import build_tokenizer
+from x2vlm.models.xbert import BertConfig, BertLMHeadModel
 
-from models.xvlm import XVLMBase, XVLMPlusBase, load_pretrained
+from x2vlm.models.xvlm import XVLMBase, XVLMPlusBase, load_pretrained
 
 
 class LabelSmoothingLoss(_Loss):
@@ -425,7 +425,7 @@ class XVLMForVQA(XVLMBase):
         assert config['num_dec_layers'] in [self.num_cross_layers, self.num_cross_layers // 2], "initialization not implemented"
 
         if config['text_encoder'] == 'data/roberta-base':
-            from models.xroberta import RobertaConfig
+            from x2vlm.models.xroberta import RobertaConfig
             config_dec = RobertaConfig.from_json_file(os.path.join(config['text_encoder'], 'config.json'))
         else:
             config_dec = copy.deepcopy(config_enc)
@@ -437,7 +437,7 @@ class XVLMForVQA(XVLMBase):
         self.dec_encoder_width = config_enc.hidden_size
 
         if config['text_encoder'] == 'data/roberta-base':
-            from models.xroberta import RobertaForCausalLM
+            from x2vlm.models.xroberta import RobertaForCausalLM
             self.text_decoder = RobertaForCausalLM(config=config_dec)
         else:
             self.text_decoder = BertLMHeadModel(config=config_dec)

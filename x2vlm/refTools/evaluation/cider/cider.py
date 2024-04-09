@@ -7,7 +7,7 @@
 #
 # Authors: Ramakrishna Vedantam <vrama91@vt.edu> and Tsung-Yi Lin <tl483@cornell.edu>
 
-from refTools.evaluation.cider.cider_scorer import CiderScorer
+from x2vlm.refTools.evaluation.cider.cider_scorer import CiderScorer
 import pdb
 
 class Cider:

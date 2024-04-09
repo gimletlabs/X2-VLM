@@ -10,9 +10,9 @@ from torchvision.datasets.utils import download_url
 
 from PIL import Image
 
-from dataset import build_tokenizer
-from dataset.utils import pre_caption
-from dataset.pretrain_dataset import TextMaskingGenerator
+from x2vlm.dataset import build_tokenizer
+from x2vlm.dataset.utils import pre_caption
+from x2vlm.dataset.pretrain_dataset import TextMaskingGenerator
 
 
 class coco_karpathy_train(Dataset):

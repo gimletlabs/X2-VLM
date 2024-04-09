@@ -14,17 +14,17 @@ import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
 import utils
-from utils.checkpointer import Checkpointer
+from x2vlm.utils.checkpointer import Checkpointer
 
-from dataset import create_dataset, create_sampler, create_loader, build_tokenizer
-from dataset.utils import collect_tensor_result, grounding_eval_bbox, grounding_eval_bbox_vlue
+from x2vlm.dataset import create_dataset, create_sampler, create_loader, build_tokenizer
+from x2vlm.dataset.utils import collect_tensor_result, grounding_eval_bbox, grounding_eval_bbox_vlue
 
-from models.model_grounding import XVLMForGrounding
+from x2vlm.models.model_grounding import XVLMForGrounding
 
 from optim import create_optimizer
-from refTools.refer_python3 import REFER
+from x2vlm.refTools.refer_python3 import REFER
 from scheduler import create_scheduler
-from utils.hdfs_io import hmkdir, hcopy, hexists
+from x2vlm.utils.hdfs_io import hmkdir, hcopy, hexists
 
 
 def train(model, data_loader, optimizer, tokenizer, epoch, device, scheduler, config):

@@ -10,8 +10,8 @@ from torch.utils.data import Dataset
 from torchvision.transforms.functional import hflip, resize
 
 from PIL import Image
-from dataset.utils import pre_caption
-from refTools.refer_python3 import REFER
+from x2vlm.dataset.utils import pre_caption
+from x2vlm.refTools.refer_python3 import REFER
 
 
 class grounding_dataset(Dataset):
