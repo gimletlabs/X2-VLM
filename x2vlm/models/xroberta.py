@@ -29,9 +29,6 @@ from torch.nn import CrossEntropyLoss
 from transformers.activations import ACT2FN, gelu
 from transformers.file_utils import (
     ModelOutput,
-    add_code_sample_docstrings,
-    add_start_docstrings,
-    add_start_docstrings_to_model_forward,
     replace_return_docstrings,
 )
 from transformers.modeling_outputs import (
@@ -684,10 +681,6 @@ ROBERTA_INPUTS_DOCSTRING = r"""
 """
 
 
-@add_start_docstrings(
-    "The bare RoBERTa Model transformer outputting raw hidden-states without any specific head on top.",
-    ROBERTA_START_DOCSTRING,
-)
 class RobertaModel(RobertaPreTrainedModel):
     """
     The model can behave as an encoder (with only self-attention) as well as a decoder, in which case a layer of
@@ -787,13 +780,6 @@ class RobertaModel(RobertaPreTrainedModel):
         extended_attention_mask = (1.0 - extended_attention_mask) * -10000.0
         return extended_attention_mask
 
-    @add_start_docstrings_to_model_forward(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
-    @add_code_sample_docstrings(
-        processor_class=_TOKENIZER_FOR_DOC,
-        checkpoint=_CHECKPOINT_FOR_DOC,
-        output_type=BaseModelOutputWithPoolingAndCrossAttentions,
-        config_class=_CONFIG_FOR_DOC,
-    )
     # Copied from transformers.models.bert.modeling_bert.BertModel.forward
     def forward(
         self,
@@ -940,9 +926,6 @@ class RobertaModel(RobertaPreTrainedModel):
         )
 
 
-@add_start_docstrings(
-    """RoBERTa Model with a `language modeling` head on top for CLM fine-tuning. """, ROBERTA_START_DOCSTRING
-)
 class RobertaForCausalLM(RobertaPreTrainedModel):
     # _keys_to_ignore_on_save = [r"lm_head.decoder.weight", r"lm_head.decoder.bias"]
     # _keys_to_ignore_on_load_missing = [r"position_ids", r"lm_head.decoder.weight", r"lm_head.decoder.bias"]
@@ -969,8 +952,6 @@ class RobertaForCausalLM(RobertaPreTrainedModel):
     def set_output_embeddings(self, new_embeddings):
         self.lm_head.decoder = new_embeddings
 
-    @add_start_docstrings_to_model_forward(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
-    @replace_return_docstrings(output_type=CausalLMOutputWithCrossAttentions, config_class=_CONFIG_FOR_DOC)
     def forward(
         self,
         input_ids=None,
@@ -1111,7 +1092,6 @@ class MaskedLMOutput(ModelOutput):
     cross_attentions: Optional[Tuple[torch.FloatTensor]] = None
 
 
-@add_start_docstrings("""RoBERTa Model with a `language modeling` head on top. """, ROBERTA_START_DOCSTRING)
 class RobertaForMaskedLM(RobertaPreTrainedModel):
     # _keys_to_ignore_on_save = [r"lm_head.decoder.weight", r"lm_head.decoder.bias"]
     # _keys_to_ignore_on_load_missing = [r"position_ids", r"lm_head.decoder.weight", r"lm_head.decoder.bias"]
@@ -1172,14 +1152,6 @@ class RobertaForMaskedLM(RobertaPreTrainedModel):
     def gather_seq_out_by_pos(self, seq, pos):
         return torch.gather(seq, 1, pos.unsqueeze(2).expand(-1, -1, seq.size(-1)))
 
-    @add_start_docstrings_to_model_forward(ROBERTA_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
-    @add_code_sample_docstrings(
-        processor_class=_TOKENIZER_FOR_DOC,
-        checkpoint=_CHECKPOINT_FOR_DOC,
-        output_type=MaskedLMOutput,
-        config_class=_CONFIG_FOR_DOC,
-        mask="<mask>",
-    )
     def forward(
         self,
         input_ids=None,
