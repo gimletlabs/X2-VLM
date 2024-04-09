@@ -125,9 +125,9 @@ def get_bert_config(encoder_rpath, num_hidden_layers=12, cross_start_at=12):
         cross_start_at: if it >= num_hidden_layers, no cross attn
     """
     if 'roberta' in encoder_rpath:
-        config = RobertaConfig.from_json_file(os.path.join(encoder_rpath, 'config.json'))
+        config = RobertaConfig.from_json_file(encoder_rpath)
     else:
-        config = BertConfig.from_json_file(os.path.join(encoder_rpath, 'config.json'))
+        config = BertConfig.from_json_file(encoder_rpath)
 
     # set configs
     config.num_hidden_layers = num_hidden_layers
@@ -285,7 +285,8 @@ def build_vision_encoder(config, load_params=False):
 
 def build_text_encoder(config, vision_width, load_text_params=False, use_mlm_loss=False, config_text=None):
     if config_text is None:
-        config_text = get_bert_config(config['text_encoder'], num_hidden_layers=config['text_num_hidden_layers'],
+        config_path = os.path.join(config['text_encoder'], 'config.json') if 'text_encoder_config_file' not in config else config['text_encoder_config_file']
+        config_text = get_bert_config(config_path, num_hidden_layers=config['text_num_hidden_layers'],
                                       cross_start_at=config['text_fusion_start_at'])
     else:
         assert isinstance(config_text, BertConfig)
@@ -983,7 +984,8 @@ class XVLMPlusBase(XVLMBase):
             self.init_params = []
 
     def build_text_encoder(self, config, vision_width, load_text_params=False, use_mlm_loss=False, config_text=None):
-        config_text = get_bert_config(config['text_encoder'], num_hidden_layers=config['text_num_hidden_layers'],
+        config_path = os.path.join(config['text_encoder'], 'config.json') if 'text_encoder_config_file' not in config else config['text_encoder_config_file']
+        config_text = get_bert_config(config_path, num_hidden_layers=config['text_num_hidden_layers'],
                                       cross_start_at=config['text_num_hidden_layers'])
 
         text_encoder, missing_keys = build_text_encoder(config, vision_width, load_text_params=load_text_params,
@@ -998,7 +1000,8 @@ class XVLMPlusBase(XVLMBase):
         return text_encoder, missing_keys
 
     def build_cross_encoder(self, config, config_text, load_cross_params=False):
-        config_cross = get_bert_config(config['cross_encoder'], num_hidden_layers=config['cross_num_hidden_layers'],
+        config_path = os.path.join(config['cross_encoder'], 'config.json') if 'cross_encoder_config_file' not in config else config['cross_encoder_config_file']
+        config_cross = get_bert_config(config_path, num_hidden_layers=config['cross_num_hidden_layers'],
                                        cross_start_at=0)
 
         if config_text.hidden_size != config_cross.hidden_size:
