@@ -1,5 +1,5 @@
-timm==0.4.9
-transformers==4.12.5
+timm
+transformers
 ruamel_yaml
 opencv-python
 scikit-image
