@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="x2vlm-gml",
-    version="0.1.0",
+    version="0.1.1",
     author="Gimlet Labs",
     url="https://github.com/gimletlabs/X2-VLM",
     license="BSD",
